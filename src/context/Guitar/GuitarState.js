@@ -69,6 +69,13 @@ const GuitarState = (props) => {
 
 	}
 
+	const createGuitar = async (form) => {
+
+		const res = await axiosClient.post("guitars/create", form)
+
+		console.log(res)
+
+	}
 	// 4. RETORNO
 	return (
 		<GuitarContext.Provider
@@ -78,7 +85,8 @@ const GuitarState = (props) => {
 				singleGuitar: globalState.singleGuitar,
 				changeText,
 				getGuitars,
-				getGuitar
+				getGuitar,
+				createGuitar
 			}}
 		>
 			{props.children}

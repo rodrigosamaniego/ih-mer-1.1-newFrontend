@@ -1,8 +1,9 @@
 
 import {useReducer} from 'react'
-import axiosClient from '../../config/axios'
+
 import StoreContext from './StoreContext'
 import StoreReducer from './StoreReducer'
+import axiosClient from '../../config/axios'
 
 const StoreState = (props) => {
     //initial state
@@ -47,6 +48,13 @@ const StoreState = (props) => {
         })
     }
 
+    const createStore = async (form) => {
+        
+        const res = await axiosClient.post("stores/create", form)
+
+        console.log(res)
+    }
+
 
     //return
     return (
@@ -57,7 +65,8 @@ const StoreState = (props) => {
             singleStore: globalState.singleStore,
             changeText,
             getStores,
-            getStore
+            getStore,
+            createStore
 
         }}
         >
