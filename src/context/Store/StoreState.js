@@ -1,4 +1,9 @@
 
+
+
+
+
+
 import {useReducer} from 'react'
 
 import StoreContext from './StoreContext'
@@ -41,6 +46,8 @@ const StoreState = (props) => {
     const getStore = async (storeId) => {
         const res = await axiosClient.get(`stores/readone/${storeId}`)
 
+        console.log(res)
+
         const selectedStore = res.data.data
         dispatch({
             type: "GET_STORE",
@@ -55,6 +62,17 @@ const StoreState = (props) => {
         console.log(res)
     }
 
+    const updateStore = async (form, idStore) => {
+        const res = await axiosClient.put(`stores/edit/${idStore}`, form)
+
+        const updatedStore = res.data.data
+
+        dispatch({
+            type: "UPDATE_STORE",
+            payload: updateStore
+        })
+    }
+
 
     //return
     return (
@@ -66,7 +84,8 @@ const StoreState = (props) => {
             changeText,
             getStores,
             getStore,
-            createStore
+            createStore,
+            updateStore
 
         }}
         >

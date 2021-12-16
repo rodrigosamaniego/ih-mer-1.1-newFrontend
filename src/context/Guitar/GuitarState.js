@@ -19,7 +19,7 @@ const GuitarState = (props) => {
 		singleGuitar: {
 			_id: "",
 			nombre: "",
-			decripcion: "",
+			descripcion: "",
 			color: "",
 			precio: "",
 			imagen: ""
@@ -58,7 +58,11 @@ const GuitarState = (props) => {
 
 	const getGuitar = async (guitarId) => {
 		
+		console.log(guitarId)
+
 		const res = await axiosClient.get(`guitars/readone/${guitarId}`)
+
+		console.log(res)
 
 		const selectedGuitar = res.data.data
 
@@ -76,6 +80,22 @@ const GuitarState = (props) => {
 		console.log(res)
 
 	}
+
+	const updateGuitar = async (form, idGuitar) => {
+
+		const res = await axiosClient.put(`guitars/edit/${idGuitar}`, form)
+
+		const updatedGuitar = res.data.data
+
+		dispatch({
+			type: "UPDATE_GUITAR",
+			payload: updatedGuitar
+		})
+
+
+	}
+
+
 	// 4. RETORNO
 	return (
 		<GuitarContext.Provider
@@ -86,7 +106,8 @@ const GuitarState = (props) => {
 				changeText,
 				getGuitars,
 				getGuitar,
-				createGuitar
+				createGuitar,
+				updateGuitar
 			}}
 		>
 			{props.children}
